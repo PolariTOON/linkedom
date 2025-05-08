@@ -30,7 +30,7 @@ assert(iframe.src, './test.html', 'Issue #82 - <iframe>.src');
   iframe.loading = "lazy";
   assert(
     document.body.innerHTML,
-    `<iframe loading="lazy" referrerpolicy="no-referrer" name="iframe-name" allow="geolocation"></iframe>`
+    `<iframe allow="geolocation" name="iframe-name" referrerpolicy="no-referrer" loading="lazy"></iframe>`
   );
 }
 
