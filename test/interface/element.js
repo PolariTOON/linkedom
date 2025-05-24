@@ -37,7 +37,7 @@ assert(htmlDocWithEmptyAttrFromSet.firstChild.getAttribute('style'), '');
 assert(htmlDocWithEmptyAttrFromSet.firstChild.outerHTML, '<span></span>');
 assert(htmlDocWithEmptyAttrFromSet.innerHTML, '<span></span>');
 
-const xmlDoc = parser.parseFromString(`<hierarchy><android.view.View content-desc="text3&amp;more"/></hierarchy>`, 'text/xml').documentElement;
+const xmlDoc = parser.parseFromString(`<hierarchy><android.view.View content-desc="text3&amp;more" /></hierarchy>`, 'text/xml').documentElement;
 
 assert(xmlDoc.firstChild.getAttribute('content-desc'), 'text3&more');
 assert(xmlDoc.firstChild.outerHTML, '<android.view.View content-desc="text3&amp;more" />');
@@ -48,7 +48,7 @@ assert(xmlDoc.firstChild.getAttribute('content-desc'), '');
 assert(xmlDoc.firstChild.outerHTML, '<android.view.View content-desc="" />');
 assert(xmlDoc.innerHTML, '<android.view.View content-desc="" />');
 
-const xmlDocWithEmptyAttrFromSet = parser.parseFromString(`<hierarchy><android.view.View style=""/></hierarchy>`, 'text/xml').documentElement;// attribute is in emptyAttributes set is empty (even for XML)
+const xmlDocWithEmptyAttrFromSet = parser.parseFromString(`<hierarchy><android.view.View style="" /></hierarchy>`, 'text/xml').documentElement;// attribute is in emptyAttributes set is empty (even for XML)
 assert(xmlDocWithEmptyAttrFromSet.firstChild.getAttribute('style'), '');
 assert(xmlDocWithEmptyAttrFromSet.firstChild.outerHTML, '<android.view.View style="" />');
 assert(xmlDocWithEmptyAttrFromSet.innerHTML, '<android.view.View style="" />');
