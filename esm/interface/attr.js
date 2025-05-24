@@ -16,12 +16,26 @@ const QUOTE = /"/g;
  * @implements globalThis.Attr
  */
 export class Attr extends Node {
-  constructor(ownerDocument, name, value = '') {
-    super(ownerDocument, name, ATTRIBUTE_NODE);
+  constructor(ownerDocument, localName, value = '', prefix = null) {
+    super(ownerDocument, localName, ATTRIBUTE_NODE);
     this.ownerElement = null;
-    this.name = String(name);
+    this.name = prefix == null ? String(localName) : String(prefix) + ":" + String(value);
+    this.prefix = String(prefix);
     this[VALUE] = String(value);
     this[CHANGED] = false;
+  }
+
+  get namespaceURI() {
+    if (this.ownerElement == null || this.ownerElement.ownerSVGElement != null) {
+      return null;
+    }
+    if (this.prefix === "xml") {
+      return "http://www.w3.org/XML/1998/namespace";
+    }
+    if (this.prefix === "xmlns") {
+      return "http://www.w3.org/2000/xmlns/";
+    }
+    return null;
   }
 
   get value() { return this[VALUE]; }
