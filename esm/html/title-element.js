@@ -1,16 +1,21 @@
 import {registerHTMLClass} from '../shared/register-html-class.js';
+import {escapeHtmlTextContent} from '../shared/text-escaper.js';
+import {ignoreCase} from '../shared/utils.js';
 
-import {TextElement} from './text-element.js';
+import {HTMLElement} from './element.js';
 
 const tagName = 'title';
 
 /**
  * @implements globalThis.HTMLTitleElement
  */
-class HTMLTitleElement extends TextElement {
+class HTMLTitleElement extends HTMLElement {
   constructor(ownerDocument, localName = tagName) {
     super(ownerDocument, localName);
   }
+
+  get innerHTML() { return super.innerHTML; }
+  set innerHTML(html) { super.innerHTML = ignoreCase(this) ? escapeHtmlTextContent(html) : html; }
 }
 
 registerHTMLClass(tagName, HTMLTitleElement);
